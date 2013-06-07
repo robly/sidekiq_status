@@ -74,10 +74,10 @@ module SidekiqStatus
     # @param [Integer] start
     # @param [Integer] stop
     # @return [Array<[String,jid]>] Array of hash-like arrays of job id => last_updated_at (unixtime) pairs
-    # @see *Redis#zrange* for details on return values format
+    # @see *Redis#zrevrange* for details on return values format
     def self.status_jids(start = 0, stop = -1)
       Sidekiq.redis do |conn|
-        conn.zrange(self.statuses_key, start, stop, :with_scores => true)
+        conn.zrevrange(self.statuses_key, start, stop, :with_scores => true)
       end
     end
 
