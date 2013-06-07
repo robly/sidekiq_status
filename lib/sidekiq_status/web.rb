@@ -6,7 +6,7 @@ module SidekiqStatus
     def self.registered(app)
 
       app.get '/statuses' do
-        view_path = File.join(File.expand_path("../../../web", __FILE__), "views")
+        view_path = File.join(File.expand_path("..", __FILE__), "views")
         @count = (params[:count] || 25).to_i
 
         @current_page = (params[:page] || 1).to_i
@@ -21,7 +21,7 @@ module SidekiqStatus
       end
 
       app.get '/statuses/:jid' do
-        view_path = File.join(File.expand_path("../../../web", __FILE__), "views")
+        view_path = File.join(File.expand_path("..", __FILE__), "views")
         @status = SidekiqStatus::Container.load(params[:jid])
         render(:slim, :status)
       end
