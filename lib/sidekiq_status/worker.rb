@@ -21,7 +21,7 @@ module SidekiqStatus
           catch(:killed) do
             set_status('working')
             super(*@status_container.args)
-            set_status('complete')
+            set_status('complete', "Completed at #{Time.now}")
           end
         rescue Exception => exc
           set_status('failed', exc.class.name + ': ' + exc.message + "   \n\n " + exc.backtrace.join("\n    "))

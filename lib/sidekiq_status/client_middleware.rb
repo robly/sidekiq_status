@@ -3,7 +3,9 @@
 module SidekiqStatus
   class ClientMiddleware
     def call(worker, item, queue)
-      return yield unless worker < SidekiqStatus::Worker
+      return yield unless worker.is_a?(SidekiqStatus::Worker)
+
+      return yield if item['at']
 
       jid  = item['jid']
       args = item['args']
